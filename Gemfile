@@ -29,5 +29,6 @@ gem "rubyzip",           "~> 3.7"
 
 group :development, :test do
   gem "rspec", "~> 3.13"
+  gem "simplecov"
   gem "webmock"
 end

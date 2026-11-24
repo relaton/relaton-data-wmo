@@ -41,10 +41,13 @@ module WmoFetcher
       # Unparseable links are data for the parse-improvement round, not
       # records — the machine index cannot carry them anyway (relaton#604).
       def parse_link(text, href)
-        candidate = [text, href].compact.join(" ")
-        ::Pubid::Wmo.parse(candidate)
-      rescue StandardError
-        nil
+        [text, href].filter_map do |candidate|
+          begin
+            ::Pubid::Wmo.parse(candidate.to_s)
+          rescue StandardError
+            nil
+          end
+        end.first
       end
     end
   end
